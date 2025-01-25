@@ -10,6 +10,9 @@ import { ResponseService } from './common/services/response.service';
 import { ValidationExceptionFilter } from './pipes/exception.pipe';
 import { ApiResponseInterceptor } from './interceptors/api-response.interceptor';
 import { LoggerService } from './common/services/logger.service';
+import { CategoryModule } from './modules/category/category.module';
+import { SubCategoryModule } from './modules/sub-category/sub-category.module';
+import { PaginationService } from './common/services/pagination.service';
 
 @Global()
 @Module({
@@ -21,6 +24,8 @@ import { LoggerService } from './common/services/logger.service';
     DatabaseModule,
     RedisModule,
     CacheModule,
+    CategoryModule,
+    SubCategoryModule
   ],
   controllers: [],
   providers: [
@@ -36,10 +41,11 @@ import { LoggerService } from './common/services/logger.service';
       provide: 'APP_INTERCEPTOR',
       useClass: ApiResponseInterceptor, 
     },
+    PaginationService,
     ResponseService,
     LoggerService,
     CacheService
   ],
-  exports: [CacheService,ResponseService,LoggerService], 
+  exports: [PaginationService,CacheService,ResponseService,LoggerService], 
 })
 export class AppModule {}
