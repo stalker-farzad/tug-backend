@@ -9,6 +9,7 @@ import { BasicAuthGuard } from './guards/basic.guard';
 import { ResponseService } from './common/services/response.service';
 import { ValidationExceptionFilter } from './pipes/exception.pipe';
 import { ApiResponseInterceptor } from './interceptors/api-response.interceptor';
+import { LoggerService } from './common/services/logger.service';
 
 @Global()
 @Module({
@@ -36,8 +37,9 @@ import { ApiResponseInterceptor } from './interceptors/api-response.interceptor'
       useClass: ApiResponseInterceptor, 
     },
     ResponseService,
+    LoggerService,
     CacheService
   ],
-  exports: [CacheService,ResponseService], 
+  exports: [CacheService,ResponseService,LoggerService], 
 })
 export class AppModule {}
