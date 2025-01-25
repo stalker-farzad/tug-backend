@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { setupSwagger } from './config/swagger.config';
 
 /**
  * Bootstrap function: Initializes the NestJS application and sets up middleware, validation, logging, and event listeners.
@@ -19,10 +20,13 @@ async function bootstrap() {
 
     // Global validation pipe configuration
     app.useGlobalPipes(new ValidationPipe({
-      transform: true, 
-      whitelist: true, 
+      transform: true,
+      whitelist: true,
       forbidNonWhitelisted: true,
     }));
+
+    // Swagger Configuration
+    setupSwagger(app)
 
     // Enable CORS with specific configuration
     app.enableCors({
@@ -32,9 +36,10 @@ async function bootstrap() {
     });
 
     // Define the port for the application to listen on
-    const port = +process.env.APP_PORT || 3000; 
-    await app.listen(port); 
+    const port = +process.env.APP_PORT || 3000;
+    await app.listen(port);
 
+    Logger.debug('Swagger API documentation is available at /api/docs');
     logger.verbose(`Application is running on ${process.env.APP_URL}`);
   } catch (error) {
     logger.error('Error during application startup', { error });
