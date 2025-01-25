@@ -13,6 +13,7 @@ import { LoggerService } from './common/services/logger.service';
 import { CategoryModule } from './modules/category/category.module';
 import { SubCategoryModule } from './modules/sub-category/sub-category.module';
 import { PaginationService } from './common/services/pagination.service';
+import { CompanyModule } from './modules/company/company.module';
 
 @Global()
 @Module({
@@ -25,7 +26,8 @@ import { PaginationService } from './common/services/pagination.service';
     RedisModule,
     CacheModule,
     CategoryModule,
-    SubCategoryModule
+    SubCategoryModule,
+    CompanyModule,
   ],
   controllers: [],
   providers: [
