@@ -1,0 +1,60 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Trigger the pipeline on push to main branch
+  pull_request:
+    branches:
+      - main  # Trigger the pipeline on pull requests to main branch
+
+jobs:
+  # Job for building, testing, and running integration tests
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.4.0'  # Set your desired Node.js version
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install Dependencies
+        run: pnpm install  # Ensure all dependencies are installed
+
+      - name: Run Unit Test
+        run: pnpm test
+
+  # Job for indicating successful pipeline completion
+  deploy:
+    needs: build-and-test  # Ensure the deploy job runs after the build-and-test job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.4.0'  # Set your desired Node.js version
+
+      - name: Install pnpm
+        run: npm install -g pnpm  # Install pnpm globally
+
+      - name: Install Dependencies
+        run: pnpm install  # Ensure all dependencies are installed
+
+      - name: Build the Project
+        run: pnpm build  # Add your build command here
+
+      - name: Run Unit Test
+        run: pnpm test
+
+      - name: Deployment Status
+        run: echo "Deployment is successful, but no actual deployment performed."  # Just print a success message
