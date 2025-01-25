@@ -1,6 +1,7 @@
 import { envValidationSchema } from 'src/config/env.validation';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import databaseConfig from 'src/config/database.config';
+import { SeederModule } from './seeders/seeder.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 
@@ -37,6 +38,7 @@ import { Module } from '@nestjs/common';
       }),
       inject: [ConfigService],
     }),
+    SeederModule,
   ],
   providers: [
 
