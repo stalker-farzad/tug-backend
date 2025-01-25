@@ -21,6 +21,7 @@ export class SubCategoryController {
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1, description: 'Page number for pagination' })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 10, description: 'Number of items per page' })
   @ApiResponse({ status: 200, description: 'List of subcategories with pagination metadata', type: IndexSubCategoryDto})
+  @ApiResponse({ status: 404, description: 'No subcategories found' })
   async findAll(
     @Query('page') page = 1,
     @Query('limit') limit = 10,

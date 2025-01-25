@@ -59,7 +59,7 @@ export class Product extends AbstractBaseEntity {
     example: '1234567890123456',
     maxLength: 64,
   })
-  @Column({ unique: true, type: 'varchar', length: 64 })
+  @Column({ type: 'varchar', length: 64 })
   barcode: string;
 
   /**

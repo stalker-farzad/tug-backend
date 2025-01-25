@@ -72,7 +72,6 @@ export class CompanyController {
   @ApiBasicAuth()
   @ApiOperation({ summary: 'Update a company by ID' })
   @ApiResponse({ status: 200, description: 'Company successfully updated', type: ShowCompanyDto })
-  @ApiConflictResponse({description: 'A company with this name already exists.'})
   @ApiResponse({ status: 404, description: 'Company not found' })
   async update(
     @Param('id') id: string,

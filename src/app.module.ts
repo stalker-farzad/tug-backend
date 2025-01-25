@@ -1,13 +1,13 @@
 import { ApiResponseInterceptor } from './interceptors/api-response.interceptor';
 import { SubCategoryModule } from './modules/sub-category/sub-category.module';
 import { PaginationService } from './common/services/pagination.service';
+import { ResponseService } from './common/services/response.service';
+import { CategoryModule } from './modules/category/category.module';
+import { ValidationExceptionFilter } from './pipes/exception.pipe';
 import { DatabaseModule } from './database/mysql/database.module';
 import { CompanyModule } from './modules/company/company.module';
 import { LoggerService } from './common/services/logger.service';
-import { ResponseService } from './common/services/response.service';
-import { CategoryModule } from './modules/category/category.module';
 import { ProductModule } from './modules/product/product.module';
-import { ValidationExceptionFilter } from './pipes/exception.pipe';
 import { CacheService } from './database/redis/cache.service';
 import { CacheModule } from './database/redis/redis.module';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
@@ -57,6 +57,11 @@ import { CommandModule } from 'nestjs-command';
     LoggerService,
     CacheService
   ],
-  exports: [LoggerService , ResponseService , PaginationService , CacheService], 
+  exports: [
+    LoggerService , 
+    ResponseService , 
+    PaginationService , 
+    CacheService
+  ], 
 })
 export class AppModule {}

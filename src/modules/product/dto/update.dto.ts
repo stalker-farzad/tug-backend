@@ -1,5 +1,6 @@
+import { IsString, IsNumber, IsOptional, Min, IsNotEmpty, IsUUID, IsEnum } from 'class-validator';
+import { StatusEnum } from 'src/enums/status.enum';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsOptional, Min, IsNotEmpty, IsUUID } from 'class-validator';
 
 /**
  * DTO to update an existing product.
@@ -56,16 +57,16 @@ export class UpdateProductDto {
         description: 'The ID of the company that owns the product',
         type: String,
         required: true,
-        example : "de5d80a7-c70b-4cc2-a6f0-b74e10ab8141"
+        example: "de5d80a7-c70b-4cc2-a6f0-b74e10ab8141"
     })
     @IsNotEmpty()
-    @IsUUID() 
+    @IsUUID()
     companyId?: string;
 
     @ApiProperty({
         description: 'The ID of the category that the product belongs to',
         type: String,
-        example:"de5d80a7-c70b-4cc2-a6f0-b74e10ab8141"
+        example: "de5d80a7-c70b-4cc2-a6f0-b74e10ab8141"
     })
     @IsNotEmpty()
     @IsUUID()
@@ -75,9 +76,20 @@ export class UpdateProductDto {
         description: 'The ID of the optional subcategory that the product belongs to (optional)',
         type: String,
         required: false,
-        default : null
+        default: null
     })
     @IsOptional()
     @IsUUID()
     subcategoryId?: string;
+
+    @ApiProperty({
+        description: 'The status of the product',
+        enum: StatusEnum,
+        default: StatusEnum.ACTIVE,
+        example: StatusEnum.ACTIVE,
+        required: false,
+    })
+    @IsOptional()
+    @IsEnum(StatusEnum)
+    status?: StatusEnum;
 }

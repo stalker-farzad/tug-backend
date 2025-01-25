@@ -21,6 +21,7 @@ export class CategoryController {
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1, description: 'Page number for pagination' })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 10, description: 'Number of items per page' })
   @ApiResponse({ status: 200, description: 'List of categories with pagination metadata', type: IndexCategoryDto })
+  @ApiResponse({ status: 404, description: 'No categories found' })
   async findAll(@Query('page') page = 1, @Query('limit') limit = 10): Promise<IndexCategoryDto> {
     return this.categoryService.findAll(Number(page), Number(limit));
   }

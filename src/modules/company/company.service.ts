@@ -111,10 +111,6 @@ export class CompanyService {
         // If the company is not found, throw an exception with a "Not Found" error
         if (!company) throw new HandleException('Company not found', HttpStatus.NOT_FOUND);
 
-        // Check if a company with the same name already exists
-        const existingCompany = await this.companyRepository.findOne({ where: { name: updateCompanyDto.name } });
-        if (existingCompany) throw new HandleException('Company with this name already exists.', HttpStatus.CONFLICT);
-
         // Update the company fields with the new values from the DTO
         Object.assign(company, updateCompanyDto);
 

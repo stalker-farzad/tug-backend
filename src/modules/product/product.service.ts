@@ -46,7 +46,7 @@ export class ProductService {
         if (existingProduct) throw new HandleException('Product with this name already exists.', HttpStatus.CONFLICT);
 
         // Check if a product with the same barcode already exists
-        const existingBarcode = await this.productRepository.findOne({ where: { name: createProductDto.barcode } });
+        const existingBarcode = await this.productRepository.findOne({ where: { barcode: createProductDto.barcode } });
         if (existingBarcode) throw new HandleException('Product with this barcode already exists.', HttpStatus.CONFLICT);
 
         // Validate categoryId if provided
@@ -144,7 +144,7 @@ export class ProductService {
      */
     async update(id: string, updateProductDto: UpdateProductDto): Promise<ResponseDto<Product>> {
 
-        const { categoryId, companyId, subcategoryId, barcode } = updateProductDto;
+        const { categoryId, companyId, subcategoryId } = updateProductDto;
 
         // Check if the product exists
         const product = await this.productRepository.findOne({ where: { id } });
@@ -166,12 +166,6 @@ export class ProductService {
         if (subcategoryId) {
             const subCategoryExists = await this.subCategoryRepository.findOne({ where: { id: subcategoryId } });
             if (!subCategoryExists) throw new HandleException('Subcategory with the provided ID does not exist', HttpStatus.NOT_FOUND);
-        }
-
-        // Validate unique barcode
-        if (barcode) {
-            const barcodeExists = await this.productRepository.findOne({ where: { barcode, id: Not(id) } });
-            if (barcodeExists) throw new HandleException('Barcode must be unique', HttpStatus.CONFLICT);
         }
 
         // Update the product fields with the new values from the DTO
